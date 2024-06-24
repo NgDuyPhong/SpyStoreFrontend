@@ -4,7 +4,8 @@ import vuetify from "vuetify";
 import Vuetify from "vuetify/lib";
 import router from './router';
 import './configs/axios';
-
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap"
 
 Vue.config.productionTip = false
 Vue.use(vuetify);

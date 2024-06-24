@@ -1,5 +1,6 @@
 <template>
   <div id="search-page">
+    <router-link to="/spy-store" class="btn-spy-store">Spy Store</router-link>
     <v-overlay :value="overlay"></v-overlay>
     <div id="filters">
       <div class="filters-option">
@@ -106,7 +107,7 @@ export default {
       this.filter.afterDate = this.$refs.afterDate.getDate();
       this.filter.beforeDate = this.$refs.beforeDate.getDate();
 
-      const [resp, err] = await this.$to(this.$http.get('http://34.27.44.242:8030/extensions/products', {params: this.filter}));
+      const [resp, err] = await this.$to(this.$http.get(`${process.env.VUE_APP_API_ENDPOINT}extensions/products`, {params: this.filter}));
 
       if (resp) {
         this.items = resp.data;
@@ -122,7 +123,7 @@ export default {
 
     async deleteData() {
       this.confirmationModal = false;
-      const [resp, err] = await this.$to(this.$http.delete('http://34.27.44.242:8030/extensions/products'));
+      const [resp, err] = await this.$to(this.$http.delete(`${process.env.VUE_APP_API_ENDPOINT}extensions/products`));
 
       if (resp) {
         await this.search();
@@ -142,6 +143,9 @@ export default {
 </script>
 
 <style lang="stylus">
+.btn-spy-store
+  display flex
+  margin-bottom 20px
 #btn-container
   display flex
   width 100%

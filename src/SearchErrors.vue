@@ -40,7 +40,7 @@ export default {
 
   methods: {
     async fetchSearchErrors() {
-      const [resp, err] = await this.$to(this.$http.get('http://34.27.44.242:8030/v1/errors'));
+      const [resp, err] = await this.$to(this.$http.get(`${process.env.VUE_APP_API_ENDPOINT}v1/errors`));
 
       if (resp) {
         this.searchErrors = resp.data;

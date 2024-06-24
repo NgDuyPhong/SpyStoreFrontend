@@ -76,7 +76,7 @@ export default {
 
   methods: {
     async revokeToken(accessToken) {
-      const [resp] = await this.$to(this.$http.post(`http://34.27.44.242:8030/users/revoke-token`, accessToken));
+      const [resp] = await this.$to(this.$http.post(`${process.env.VUE_APP_API_ENDPOINT}users/revoke-token`, accessToken));
 
       if (resp) {
         localStorage.setItem('accessToken', resp.data.token);
@@ -90,7 +90,7 @@ export default {
     },
 
     async login() {
-      const [resp] = await this.$to(this.$http.post(`http://34.27.44.242:8030/users/authenticate`, { username: this.username, password: this.password }));
+      const [resp] = await this.$to(this.$http.post(`${process.env.VUE_APP_API_ENDPOINT}users/authenticate`, { username: this.username, password: this.password }));
 
       if (resp) {
         localStorage.setItem('accessToken', resp.data.token);

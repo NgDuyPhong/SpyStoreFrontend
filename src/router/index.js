@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import SearchPage from "@/SearchPage";
+import SpyStore from "@/SpyStore";
 import SearchResults from "@/SearchResults";
 import SearchErrors from "@/SearchErrors";
 import Users from "@/components/Users";
@@ -12,6 +13,11 @@ const routes = [
     path: '/',
     name: 'search-page',
     component: SearchPage
+  },
+  {
+    path: '/spy-store',
+    name: 'spy-store',
+    component: SpyStore
   },
   {
     path: '/search-results',
