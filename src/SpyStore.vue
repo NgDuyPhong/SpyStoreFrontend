@@ -6,12 +6,13 @@
 
     <!-- Thêm thành phần mới cho trang Store -->
     <div id="store-page">
-      <h2>Store Page</h2>
+      <h2>SPY SELLER</h2>
 
       <div class="row gx-5 mb-2">
         <div class="col">
+          <v-text-field v-model="sellerName" label="Tên Seller" required></v-text-field>
           <v-text-field v-model="storeName" label="Tên Store" required></v-text-field>
-          <v-text-field v-model="storeLink" label="Link Store" required></v-text-field>
+          <v-text-field v-model="storeLink" label="Seller page" required></v-text-field>
           <!-- Button thêm Store -->
           <div class="d-flex justify-content-start">
             <v-btn @click="addStore()" class="w-btn">Thêm Store</v-btn>
@@ -35,7 +36,7 @@
         <template v-slot:item="{ item, index }">
           <tr>
             <td>{{ index + 1 }}</td>
-            <td>{{ item.id }}</td>
+            <td>{{ item.seller }}</td>
             <td>{{ item.name }}</td>
             <td data-bs-toggle="tooltip" data-bs-placement="top" :title="item.url">{{ item.url }}</td>
             <td><v-btn @click="deleteSpyStore(item)">Xóa Store</v-btn></td>
@@ -64,7 +65,7 @@ export default {
       storeNumber: "",
       headers: [
         { text: "STT", value: "index" },
-        { text: "ID", value: "id" },
+        { text: "Tên Seller", value: "seller" },
         { text: "Tên Store", value: "name" },
         { text: "Link Store", value: "url" },
         { text: "Action", value: "" },
@@ -76,6 +77,7 @@ export default {
       storeName: "",
       storeLink: "",
       username: "",
+      sellerName: "",
     };
   },
 
@@ -194,7 +196,7 @@ export default {
     },
 
     async addStore() {
-      if (!this.storeName || !this.storeLink) {
+      if (!this.storeName || !this.storeLink || !this.sellerName) {
         alert("Vui lòng điền đầy đủ thông tin");
         return;
       }
@@ -207,6 +209,7 @@ export default {
           body: JSON.stringify({
             name: this.storeName,
             url: this.storeLink,
+            seller: this.sellerName,
             currentPage: 0,
             maxPage: 0,
             user: {

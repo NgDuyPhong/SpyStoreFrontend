@@ -1,7 +1,7 @@
 <template>
   <div id="app" data-app>
     <div id="header" v-if="isLoggedIn">
-      <div> {{ loggedInUserName }} </div>
+      <div>{{ loggedInUserName }}</div>
       |
       <v-btn text @click="logOut()">Logout</v-btn>
     </div>
@@ -9,51 +9,42 @@
     <div id="nav">
       <router-link to="/">Search page</router-link>
       |
+      <router-link to="/spy-store">SPY SELLER</router-link>
+      |
       <template v-if="canEditUser">
         |
         <router-link to="/users">Users</router-link>
       </template>
     </div>
 
-    <v-dialog
-        v-model="loginModal"
-        persistent
-    >
+    <v-dialog v-model="loginModal" persistent>
       <v-card id="modal">
-        <v-text-field
-            label="User name"
-            v-model="username"
-        ></v-text-field>
+        <v-text-field label="User name" v-model="username"></v-text-field>
 
-        <v-text-field
-            label="Password"
-            v-model="password"
-            type="password"
-        ></v-text-field>
+        <v-text-field label="Password" v-model="password" type="password"></v-text-field>
 
         <v-btn @click="login">Login</v-btn>
       </v-card>
     </v-dialog>
-    <router-view :links="links"/>
+    <router-view :links="links" />
   </div>
 </template>
 
 <script>
-
 export default {
   data() {
     return {
       loginModal: false,
-      username: '',
-      password: '',
+      username: "",
+      password: "",
       links: {},
     };
   },
 
   async mounted() {
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem("accessToken");
 
-    if (!accessToken || accessToken === 'undefined' || accessToken.length === 0) {
+    if (!accessToken || accessToken === "undefined" || accessToken.length === 0) {
       this.loginModal = true;
     } else {
       await this.revokeToken(accessToken);
@@ -79,33 +70,35 @@ export default {
       const [resp] = await this.$to(this.$http.post(`${process.env.VUE_APP_API_ENDPOINT}users/revoke-token`, accessToken));
 
       if (resp) {
-        localStorage.setItem('accessToken', resp.data.token);
+        localStorage.setItem("accessToken", resp.data.token);
         this.links = resp.data._links;
         this.loginModal = false;
       } else {
-        localStorage.setItem('accessToken', '');
+        localStorage.setItem("accessToken", "");
         this.logOut();
-        alert('Error');
+        alert("Error");
       }
     },
 
     async login() {
-      const [resp] = await this.$to(this.$http.post(`${process.env.VUE_APP_API_ENDPOINT}users/authenticate`, { username: this.username, password: this.password }));
+      const [resp] = await this.$to(
+        this.$http.post(`${process.env.VUE_APP_API_ENDPOINT}users/authenticate`, { username: this.username, password: this.password })
+      );
 
       if (resp) {
-        localStorage.setItem('accessToken', resp.data.token);
+        localStorage.setItem("accessToken", resp.data.token);
         this.links = resp.data._links;
         this.loginModal = false;
       } else {
-        localStorage.setItem('accessToken', '');
-        alert('Error');
+        localStorage.setItem("accessToken", "");
+        alert("Error");
       }
     },
 
     logOut() {
-      localStorage.setItem('accessToken', '');
+      localStorage.setItem("accessToken", "");
       this.loginModal = true;
-      this.$router.push('/');
+      this.$router.push("/");
     },
   },
 };

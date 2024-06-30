@@ -1,6 +1,5 @@
 <template>
   <div id="search-page">
-    <router-link to="/spy-store" class="btn-spy-store">Spy Store</router-link>
     <v-overlay :value="overlay"></v-overlay>
     <div id="filters">
       <div class="filters-option">
