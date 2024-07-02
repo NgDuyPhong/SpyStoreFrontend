@@ -221,6 +221,7 @@ export default {
           alert("Store đã được thêm thành công");
           this.storeName = "";
           this.storeLink = "";
+          this.sellerName = "";
           // Gọi lại hàm fetchAllStoreData để load lại dữ liệu
           await this.fetchAllStoreData();
         } else {
